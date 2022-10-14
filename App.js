@@ -1,8 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import logo from './assets/logo.png';	
+import * as ImagePicker from 'expo-image-picker';
 
 export default function App() {
+  let openImagePickerAsync = async () => {
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    console.log(pickerResult);
+  };
   return (
     <View style={styles.container}>
       <Image source={{ uri: "https://cdn.pixabay.com/photo/2016/11/25/23/15/moon-1859616_960_720.jpg"}} style={styles.logo} />
@@ -10,7 +15,7 @@ export default function App() {
       <Text style={styles.instructions}>QUE DUROOOOO NELSOOOOOOOOOOOOOOOOOON</Text>
       <Text style={styles.instructions}>Klk Esmarlyn</Text>
       <StatusBar style="auto" />
-      <TouchableOpacity onPress={() => alert('QUE DUROOOOO')} style={styles.button}>
+      <TouchableOpacity onPress={openImagePickerAsync} style={styles.button}>
         <Text style={styles.buttonText}>Selecciona una foto</Text>
         </TouchableOpacity>
     </View>
