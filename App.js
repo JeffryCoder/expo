@@ -1,8 +1,10 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View, Platform } from 'react-native';
 import logo from './assets/logo.png';	
 import * as ImagePicker from 'expo-image-picker';
+import * as Sharing from 'expo-sharing';
+import * as ImageManipulator from 'expo-image-manipulator';
 
 export default function App() {
   const [selectedImage, setSelectedImage] = React.useState(null);
@@ -15,7 +17,20 @@ export default function App() {
     setSelectedImage({ localUri: pickerResult.uri });
 
     console.log(pickerResult); // for debugging
+  
   };
+
+  let openShareDialogAsync = async () => {
+    if (Platform.OS === 'web'){
+      alert('Oye, manito, esta aplicación no funciona en la web. Descarga la app en tu celular.');
+      return;
+    }
+    const imageTmp = await ImageManipulator.manipulateAsync(selectedImage.localUri);
+    await Sharing.shareAsync(imageTmp.uri);
+  };
+
+
+
 
   if (selectedImage !== null) {
     return (
@@ -24,6 +39,10 @@ export default function App() {
           source={{ uri: selectedImage.localUri }}
           style={styles.thumbnail}
         />
+
+        <TouchableOpacity onPress={openShareDialogAsync} style={styles.button}>
+          <Text style={styles.buttonText}>Compartir esta foto</Text>
+        </TouchableOpacity>
       </View>
   
     );
