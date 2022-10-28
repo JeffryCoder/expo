@@ -6,6 +6,14 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Sharing from 'expo-sharing';
 import * as ImageManipulator from 'expo-image-manipulator';
 
+// INICIO DE DEPURACION DE IMAGEN SPLASH
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
+setTimeout(SplashScreen.hideAsync, 5000);
+// FINAL DE DEPURACION DE IMAGEN SPLASH
+
+
 export default function App() {
   const [selectedImage, setSelectedImage] = React.useState(null);
 
